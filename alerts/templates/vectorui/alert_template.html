@@ -1,0 +1,64 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}Alerts{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center bg-green-600 text-white py-4 mb-6 text-2xl font-semibold rounded-md">Alerts</h1>
+
+    <!-- Form Section -->
+   
+    
+    <!-- Existing Environment Variables -->
+    <div class="bg-white shadow-lg rounded-md mt-4 p-4">
+        <div>
+            <form method="GET">
+                <input type="text" name="q" placeholder="search alerts" value="{{ request.GET.q }}">
+                <select name="type">
+                    <option value="">All </option>
+                    <option value="critical">critical</option>
+                    <option value="high">high</option>
+                </select>
+                <button type="submit" class="bg-green-500 hover:bg-green-600" style="color:white;">Search</button>
+            </form>
+            <!-- <h3 class="text-xl font-semibold text-gray-700">Existing Environment Variables</h3> -->
+        </div>
+        <ul class="space-y-4 mt-4">
+            <li class="bg-gray-100 p-4 rounded-md shadow-md flex justify-between items-center">
+                <strong class="text-gray-800">Type </strong>
+                <strong class="text-gray-800">Rule Name </strong>
+                <strong class="text-gray-800">Sensor id</strong>
+                <strong class="text-gray-800">Content</strong>
+            </li>
+            {% for variable in alerts_variables %}
+                <li class="bg-gray-100 p-4 rounded-md shadow-md flex justify-between items-center">
+                    <strong class="text-gray-800">{{ variable.type }}</strong>
+                    <strong class="text-gray-800">{{ variable.rule_name }}</strong>
+                    <strong class="text-gray-800">{{ variable.sensor_id }}</strong>
+                    <strong class="text-gray-800">{{ variable.content }}</strong>
+                    
+                    <!-- <form method="post" action="{% url 'delete_env_variable' variable.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="bg-red-600 text-white py-1 px-1 rounded-md hover:bg-red-700 transition duration-300">
+                            Delete
+                        </button>
+                    </form>
+                    <form method="post" action="{% url 'update_env_variable' variable.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="bg-green-600 text-white py-1 px-1 rounded-md hover:bg-red-700 transition duration-300">
+                            update
+                        </button>
+                    </form> -->
+                </li>
+            {% empty %}
+                <p class="text-gray-600">No alerts found.</p>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<br>
+
+<div class="text-center bg-gray-100 p-4 rounded-md "><p><a href="{% url 'home:index' %}" class="hover:text-blue-500">Back to Home</a></p></div>
+
+{% endblock %}
