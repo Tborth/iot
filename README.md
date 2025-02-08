@@ -75,7 +75,7 @@ influxdb_POINT="sensor_data"
 MQTT_BROKER = "mqtt.eclipseprojects.io"
 MQTT_PORT = 1883
 MQTT_TOPIC = "sensor/temperature"
-
+# Run django app
 6. Run Migrations
 
 python manage.py migrate
